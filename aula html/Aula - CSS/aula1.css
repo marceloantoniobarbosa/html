@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+}
+
+.pagina {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.titulo-aula {
+    background-color: #1a252f;
+    color: white;
+    padding: 30px 40px;
+    margin-bottom: 40px;
+    border-left: 8px solid #e74c3c;
+    border-radius: 4px;
+}
+
+.titulo-aula h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+.titulo-aula p {
+    margin-top: 8px;
+    color: #aaa;
+}
+
+.conceito {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 35px;
+    border-top: 4px solid #e74c3c;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.conceito h2 {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 6px;
+}
+
+.subtitulo {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.codigo {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-family: "Courier New", monospace;
+    font-size: 0.88rem;
+    margin: 12px 0;
+    line-height: 2;
+}
+
+.codigo .prop {
+    color: #f1c40f;
+}
+
+.codigo .val {
+    color: #2ecc71;
+}
+
+.codigo .comment {
+    color: #7f8c8d;
+}
+
+.codigo .sel {
+    color: #e74c3c;
+}
+
+.codigo .sel-b {
+    color: #3498db;
+}
+
+.dica {
+    background-color: #eafaf1;
+    border-left: 4px solid #27ae60;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    border-radius: 0 6px;
+}
+
+.alerta {
+    background-color: #fef9e7;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    border-radius: 0 6px 6px 0;
+}
+
+.variacao {
+    margin-top: 18px;
+}
+
+.variacao h4 {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 8px;
+    padding: 4px 10px;
+    background: #f0f2f5;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.demo {
+    background-color: #f8f9fa;
+    border: 2px dashed #ddd;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 14px 0;
+}
+
+.demo-seletor-tag p {
+    background-color: #d5f5e3;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+}
+
+.destaque-aula {
+    background-color: #fdebd0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+#unico-demo {
+    background-color: #d6eaf8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+.container-desc strong {
+    color: #e74c3c;
+    font-size: 1.1rem;
+    
+}
