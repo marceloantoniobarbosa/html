@@ -7,8 +7,8 @@
     porém se eu alterar o flex directionpara column e column reverse
     ele alterará os elementos na vertical */
     flex-direction: column;
-    justify-content: space-between;
-    align-items: end;
+    justify-content: end;
+    align-items: start;
     /* gap: 10px; */
     
 }
