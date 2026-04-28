@@ -176,3 +176,7 @@ if (Number.isNaN(peso) || Number.isNaN(altura)) {
         console.log("Obesidade")
     }
 }
+
+
+//For
+console.log(" Contando de 1 a 10:")

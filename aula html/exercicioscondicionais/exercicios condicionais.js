@@ -108,13 +108,30 @@ alert("Resultado:" + resultado);
 */
 
 //2. Maior entre três números:
+/*
 
 const n1 = Number(prompt("Número 1:"));
 const n2 = Number(prompt("Número 2:"));
 const n3 = Number(prompt("Número 3:"));
 
-if (condition) {
-    
+let maior;
+
+*/
+
+// AQUI ESTAVA O ERRO: trocado de num1/num2/num3 para n1/n2/n3
+if (n1 >= n2 && n1 >= n3) {
+    maior = n1;
+} else if (n2 >= n1 && n2 >= n3) {
+     maior = n2;
 } else {
+    maior = n3;
+}
+
+alert("O maior número é: " + maior);
+
+//For
+console.log("Contando de 1 a 10:")
+for () {
+   
     
 }
