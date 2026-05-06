@@ -229,7 +229,6 @@ const multiplicador = numeros.reduce((acc, numero) => {
 
 console.log(multiplicador);
 
-*/
 
 //Somar preços de produtos
 
@@ -245,3 +244,181 @@ const total = carrinho.reduce ((acc, item) => {
 }, 0);
 
 console.log(total);
+
+//Contar quantidade de letras
+const palavras = ["oi", "javascript", "html"];
+
+const totalLetras = palavras.reduce((acc, palavra) => {
+    return acc + palavra.length;
+}, 0);
+
+console.log(totalLetras);
+
+//Use reduce para descobrir: qual o maior número do array.
+const numeros = [10, 45, 7, 99, 32];
+
+const maior = numeros.reduce((acc,numero) => {
+    if (numero > acc) {
+        return numero
+    }
+    return acc;
+
+}, numeros[0]);
+
+console.log(maior);
+
+const produtos = [
+    {nome: "Mouse", preco: 50},
+    {nome: "Teclado", preco: 200},
+    {nome: "Momitor", preco: 900},
+    {nome: "Notebook", preco: 3000},
+];
+
+const resultado = produtos.filter((produto) => {
+    return produto.preco > 100;
+})
+.map((produto) => {
+    return produto.nome;
+});
+
+console.log(resultado);
+
+const filmes = [
+    {nome:"Vingadores", nota: 9},
+    {nome:"Batman", nota: 7},
+    {nome:"Dragon Ball", nota: 10},
+    {nome:"Matrix", nota: 8}
+];
+
+//Use filter para pegar notas >= 8
+//Use map para pegar apenas nomes
+//Use find para encontrar "Batman"
+//Use reduce para somar todas as notas
+
+const filmesBons = filmes.filter((filme) => {
+    return filme.nota >= 8
+});
+
+console.log(filmesBons);
+
+const nomes = filmes.map ((filme) => {
+    return filme.nome
+});
+
+console.log(nomes);
+
+const batman = filmes.find ((filme) => {
+    return filme.nome === "Batman";
+});
+
+console.log(batman);
+
+const somaNotas = filmes.reduce((acc, filme) => {
+    return acc + filme.nota;
+});
+
+console.log(somaNotas);
+
+
+
+//Switch
+
+const dia = 3;
+
+switch (dia) {
+    case 1:
+        console.log("Domingo");
+        break;
+    case 2:
+        console.log("Segunda");
+        break;
+    case 3:
+        console.log("Terça");
+        break;        
+    default:
+         console.log("Dia inválido!");
+        break;
+}
+
+const n1 = 10;
+const n2 = 5;
+
+const operacao = "+";
+
+switch (operacao) {
+    case "+":
+        console.log(n1 + n2);
+        break;
+    case "-":
+        console.log(n1 - n2);
+        break;
+    case "*":
+        console.log(n1 * n2);
+        break;
+    case "/":
+        console.log(n1 / n2);
+        break;
+    default:
+        console.log("Operação inválida!");
+}
+
+//Faça um sistema de notas:
+//A -> Excelente
+//B -> Bom
+//C -> Regular
+//D -> Ruim
+
+
+const nota = prompt("Digite uma nota: A, B, C ou D");
+
+switch (nota) {
+    case "A":
+        console.log("Excelente!");
+        break;
+    case "B":
+        console.log("Bom!");
+        break;
+    case "C":
+        console.log("Regular!");
+        break;
+    default:
+        console.log("Ruim");
+};
+
+*/
+
+//Crie um sistema de menu de videogame:
+
+//1 -> Jogar
+//2 -> Configurações
+//3 -> Créditos
+//4 -> Sair
+
+let opcao;
+do {
+    opcao = Number(prompt(`
+        === Menu ===
+        1 - Jogar
+        2 - Configurações
+        3 - Créditos
+        4 - Sair
+        `));
+
+        switch (opcao) {
+            case 1:
+                console.log("Iniciando jogo...")
+                break;
+            case 2:
+                console.log("Abrindo configurações...")
+                break;
+            case 3:
+                console.log("Criado por Marcelo Antonio...")
+                break;
+            case 4:
+                console.log("Criado por Marcelo Antonio...")
+                break;                
+            default:
+                break;
+        }
+
+} while (opcao !== 4);
