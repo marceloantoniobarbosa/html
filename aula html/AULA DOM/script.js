@@ -125,6 +125,10 @@ function mudarPoster() {
         },
     ];
 
-    const sorteado = opcoes[Math.floor(Math.random() * opcoes.length)]
+    const sorteado = opcoes[Math.floor(Math.random() * opcoes.length)];
+
+    poster.src = sorteado.url;
+
+    poster.alt = sorteado.nome;
 
 }
