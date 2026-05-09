@@ -215,6 +215,28 @@ function resetarDemo2() {
 function adicionarFilme() {
 
     const input = document.getElementById("input-fime");
+
+    const nomeFilme = input.value.trim();
+
+    if (nomeFilme === "") {
+        alert("Digite o nome do filme!");
+        return;
+    }
+
+    const li = document.createElement("li");
+
+    const span = document.createElement("span");
+
+    span.textContent = "🎬  " + nomeFilme;
+
+    const btnRemover = document.getElementById("button");
+
+    btnRemover.textContent = "🗑️ Remover"
+
+    btnRemover.onclick = function (){
+        this.parentElement.remove();
+    }
+
 }
 
 
