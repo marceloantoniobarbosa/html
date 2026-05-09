@@ -91,9 +91,9 @@ function adicionarBadge() {
     hl("#badge-container", "elemento-selecionado", 2000);
 }
 
-function mudarPoster() {
+function mudarPoster(){
 
-    const poster = document.getElementsById("poster-destaque");
+    const poster =document.getElementById("poster-destaque");
 
     const titulo = document.getElementById("titulo-destaque");
 
@@ -125,10 +125,96 @@ function mudarPoster() {
         },
     ];
 
-    const sorteado = opcoes[Math.floor(Math.random() * opcoes.length)];
+    const sorteado = opcoes[Math.floor(Math.random()* opcoes.length)];
 
     poster.src = sorteado.url;
 
     poster.alt = sorteado.nome;
 
+    titulo.textContent = sorteado.nome;
+
+    console.log("Poster trocado para: ", sorteado.nome);
+
+    poster.style.opacity = "0";
+
+    poster.style.transition = "opacity 0.3s";
+
+    setTimeout (() => {
+
+        poster.style.opacity = "1";
+
+        poster.classList.add("poster-fade-in");
+
+        setTimeout(() => {
+            poster.classList.remove("poster-fade-in");
+        }, 600);
+
+    }, 300);
+
 }
+
+function adicionarDestaque() {
+    const card = document.getElementById("filme-destaque");
+
+    card.classList.add("destaque");
+
+    console.log("Classes atuais:", card.className);
+
+    setTimeout(() => {
+        card.classList.remove("destaque");
+    }, 3000);
+
+}
+
+function lerInput(){
+
+    const input = document.getElementById("input-busca");
+
+    console.log( input);
+
+    const texto = input.value.trim();
+
+    if (texto === "") { 
+        alert("Digite algo no campo primeiro!");
+        return;
+    }
+
+    const titulo = document.getElementById("titulo-destaque");
+
+    titulo.textContent = texto;
+
+    console.log("Valor lido:", texto);
+
+    titulo.classList.add("texto-animado");
+
+    setTimeout(() => {
+        titulo.classList.remove("texto-animado")
+    }, 1500);
+
+    
+}
+
+function resetarDemo2() { 
+
+        document.getElementById("titulo-destaque").textContent = "The Witcher";
+
+        document.getElementById("poster-destaque").src = "https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg"
+
+        document.getElementById("poster-destaque").alt = "The Witcher";
+
+        document.getElementById("poster-destaque").style.opacity = "1";
+
+        document.getElementById("badge-container").innerHTML = "";
+
+        document.getElementById("input-busca").value = "";
+
+        document.getElementById("filme-destaque").classList.remove("destaque");
+
+    }
+
+function adicionarFilme() {
+
+    const input = document.getElementById("input-fime");
+}
+
+
