@@ -1,0 +1,110 @@
+let quantidade = 0;
+
+while (quantidade <= 0 || isNaN (quantidade)){
+    quantidade = Number(prompt("Quantidade tecnicos serao avaliados"));
+
+    if (quantidade <= 0 || isNaN(quantidade)) {
+        alert("Digite um número válido!")
+    }
+}
+
+for (let i = 1; i <= quantidade; i++) {
+    alert(`Tecnico ${i}`);
+
+    let nome =  prompt("digite o nome do tecnico :")
+
+    let nivel ="";
+
+    while (nivel !=="I"&& nivel !== "II" && nivel !=="III") {
+        nivel = prompt("digite o nivel (I,II ou III):").toUpperCase();
+
+        if(nivel !== "I" && nivel !== "II" && nivel !== "III"){
+            alert("nivel invalido");
+        }
+        
+    }
+
+    let chamados = -1;
+    while (chamados < 0 || isNaN(chamados) ) {
+        chamados = Number(prompt("Quantidade de chamados resolvidos;"));
+        if (chamados <0 || isNaN (chamados)) {
+            alert ("Digite um numero valido")
+        }
+    };
+
+    let nota = -1;
+    while(nota < 0 || nota > 10 || isNaN(nota)){
+        nota = Number(prompt("Digite a nota: "));
+        if (nota <0 ||nota > 10 || isNaN (nota)) {
+            alert("Digite uma nota válida");
+        }
+    }; 
+    
+    let tempoMedio = 0;
+    while(tempoMedio = 0 || isNaN(tempoMedio)){
+        tempoMedio = Number(prompt("Digite a nota: "));
+        if (nota <0  || isNaN (tempoMedio)) {
+            alert("Digite um tempoMedio válido");
+        }
+    }; 
+     
+    let chamadosReabertos = -1
+    while(chamadosReabertos < 0 || isNaN(chamadosReabertos)){
+        chamadosReabertos = Number(prompt("Digite a quantidade de chamados reabertos:"))
+        if (chamadosReabertos < 0 || isNaN(chamadosReabertos))
+            alert ('Digite numeros de chamada reabertas validas')  
+    }
+
+    let indice = (chamados * 0.3) + (nota * 100 * 0.4) - (tempoMedio * 10 * 0.2) - (chamadosReabertos * 5);
+    
+    if (indice < 0) {
+        indice = 0  
+    } 
+
+    if (nivel === "I") {
+        if (chamados > 120 || nota >=7 ||tempoMedio <= 8 ||chamadosReabertos <=15) {
+            alert("Você pode receber a bonificação de 10%!")
+        }else if (chamados > 250 || nota >=9 ||tempoMedio <= 6||chamadosReabertos <=10) {
+            alert(" Vocë pode receber a bonificação de 25%!")
+
+        } else if (chamados > 400 || nota >=8 ) {
+            alert (`Possivel promocao para nivel 2`)
+        } else if (tempoMedio >= 9 || chamadosReabertos >= 20 ){
+            alert(`alerta critico`)
+        }    else if (chamados < 60 && nota < 5 && reabertos > 40) {
+            alert(`Risco de desligamento`)
+        }
+    } else if (nivel === "II") {
+        if (chamados > 350 || nota >=7 ||tempoMedio <= 7 ||chamadosReabertos <=20) {
+            alert("Você pode receber a bonificação de 20%!")
+        }else if (chamados > 500 || nota >=9 ||tempoMedio <= 5||chamadosReabertos <=15) {
+            alert(" Vocë pode receber a bonificação de 35%!")
+
+        } else if (chamados > 800 || nota >=6 ) {
+            alert (`Possivel promocao para nivel 3`)
+        } else if (tempoMedio >= 11 || chamadosReabertos >= 30 ){
+            alert(`alerta critico`)
+        }    else if (chamados < 60 && nota < 5 && reabertos > 40) {
+            alert(`Risco de desligamento`)
+        }
+    }
+        
+        
+        
+     else if (nivel === "III") {
+        if (chamados > 120 || nota >=7 ||tempoMedio <= 8 ||chamadosReabertos <=15) {
+            alert("Você pode receber a bonificação de 10%!")
+        }else if (chamados > 250 || nota >=9 ||tempoMedio <= 6||chamadosReabertos <=10) {
+            alert(" Vocë pode receber a bonificação de 25%!")
+
+        } else if (chamados > 400 || nota >=8 ) {
+            alert (`Possivel promocao para nivel 3`)
+        } else if (tempoMedio >= 9 || chamadosReabertos >= 20 ){
+            alert(`Alerta critico`)
+        }    else if (chamados < 60 && nota < 5 && reabertos > 40) {
+            alert(`Risco de desligamento`)
+        
+        }
+
+    }
+}
