@@ -214,7 +214,7 @@ function resetarDemo2() {
 
 function adicionarFilme() {
 
-    const input = document.getElementById("input-fime");
+    const input = document.getElementById("input-filme");
 
     const nomeFilme = input.value.trim();
 
@@ -229,14 +229,167 @@ function adicionarFilme() {
 
     span.textContent = "🎬  " + nomeFilme;
 
-    const btnRemover = document.getElementById("button");
+    const btnRemover = document.createElement("button");
 
     btnRemover.textContent = "🗑️ Remover"
 
     btnRemover.onclick = function (){
         this.parentElement.remove();
-    }
+    };
 
+    li.appendChild(span);
+
+    li.appendChild(btnRemover);
+
+    const lista = document.getElementById("minha-lista");
+
+    lista.appendChild(li);
+
+    input.value = "";
+    
+    input.focus();
+
+    console.log("Adicionado:", nomeFilme, "Total", lista.children.length);
+
+    li.classList.add("item-novo");
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+
+    const cardFavorito = document.getElementById("card-favorito");
+    const statusFavorito = document.getElementById("status-favorito");
+
+    let favoritado = false
+
+    cardFavorito.addEventListener("click", function () {
+
+        favoritado = !favoritado
+
+        if (favoritado) {
+            
+            statusFavorito.textContent = "❤️ FAVORITADO!";
+
+            statusFavorito.style.color = "#e50914";
+
+            cardFavorito.style.borderColor = "e50914";
+
+            cardFavorito.style.boxShadow = "0 0 20px rgba(229, 9, 20, 0.5)";
+
+        } else {
+
+            statusFavorito.textContent = "🤍 Clique para favoritar";
+            statusFavorito.style.color = "#8b949e";
+            cardFavorito.style.borderColor =" #2a2a2a";
+            cardFavorito.style.boxShadow = "none";
+
+            console.log("favoritado", favoritado);
+            
+        };
+    });
+
+    const cardDetalhes = document.getElementById("card-detalhes");
+    const statusDetalhes = document.getElementById("status-detalhes");
+
+    cardDetalhes.addEventListener("dblclick", function () {
+        
+        statusDetalhes.textContent = "⌛Carregando...";
+
+        statusDetalhes.style.color = "#ffd700";
+
+        setTimeout(function () {
+            statusDetalhes.textContent = "Detalhes carregados!";
+
+            statusDetalhes.style.color = "#3fb950";
+        }, 1000);
+
+            console.log("Double click");
+    });
+
+    const cardHover = document.getElementById("card-hover");
+    const statusHover = document.getElementById("status-hover");
+
+    cardHover.addEventListener("mouseover", function () {
+        statusHover.textContent = "Mouse está aqui!!";
+        statusHover.style.color = "#e50914";
+        cardHover.style.backgroundColor = "#2a2a2a";
+
+        console.log("Mouse está aqui");
+    });
+
+    cardHover.addEventListener("mouseout", function () {
+        statusHover.textContent = "Aguardando....";
+        statusHover.style.color = "#4ade80";
+        cardHover.style.backgroundColor = "#1a1a1a";
+
+        console.log("Mouse saiu!");
+    });
+
+    const inputTempoReal = document.getElementById("input-busca-tempo-real");
+    const contadorDigit = document.getElementById("contador-digitacao");
+
+    inputTempoReal.addEventListener("input", function () {
+        const texto = this.value;
+
+        const quantidade = texto.length;
+
+        contadorDigit.textContent = quantidade > 0 ? `Você digitou: ${quantidade} caractere(s) - "${texto}"` : "Você digitou 0 caracteres"; 
+
+        console.log("Digitando:", texto);
+    });
+
+    const inputFilme = document.getElementById("input-filme");
+
+    if (inputFilme) {
+        inputFilme.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                adicionarFilme();
+            }
+        });
+    };
+
+    inicializarGaleria();
+
+    const inputFiltro = document.getElementById("input-filtro");
+
+    if (inputFiltro) {
+
+        inputFiltro.addEventListener("input", function() {
+            filtraFilmes(this.value);
+        });
+    };
+
+});
+
+const todosFilmes = [
+    { nome: 'Stranger Things',      tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/twfKp60THrcOIep9sjHODOOfO8d.jpg' },
+    { nome: 'Breaking Bad',         tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg' },
+    { nome: 'The Witcher',          tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg' },
+    { nome: 'La Casa de Papel',     tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg' },
+    { nome: 'Round 6',              tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg' },
+    { nome: 'Peaky Blinders',       tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/i0uajcHH9yogXMfDHpOXexIukG9.jpg' },
+    { nome: 'Wednesday',            tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/qZtAf4Z1lazGQoYVXiHOrvLr5lI.jpg' },
+    { nome: 'The Last of Us',       tipo: 'Série',  img: 'https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg' },
+    { nome: 'Oppenheimer',          tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg' },
+    { nome: 'Barbie',               tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg' },
+    { nome: 'Duna',                 tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg' },
+    { nome: 'Coringa',              tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg' },
+    { nome: 'A Origem',             tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg' },
+    { nome: 'Interestelar',         tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg' },
+    { nome: 'Parasita',             tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg' },
+    { nome: 'Vingadores: Ultimato', tipo: 'Filme',  img: 'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg' },
+];
+
+function inicializarGaleria() {
+
+    const galeria = document.getElementById("galeria-filmes");
+
+    if (!galeria) return;
+
+    todosFilmes.forEach(function (filme) {
+        const card = document.createElement("div");
+        card.className = "card-galeria";
+
+    })
+
+}
 
