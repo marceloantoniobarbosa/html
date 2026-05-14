@@ -332,6 +332,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const quantidade = texto.length;
 
+        //* IF Else de senior... Operador ternário...
+
         contadorDigit.textContent = quantidade > 0 ? `Você digitou: ${quantidade} caractere(s) - "${texto}"` : "Você digitou 0 caracteres"; 
 
         console.log("Digitando:", texto);
@@ -354,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (inputFiltro) {
 
         inputFiltro.addEventListener("input", function() {
-            filtraFilmes(this.value);
+            filtrarFilmes(this.value);
         });
     };
 
@@ -388,8 +390,62 @@ function inicializarGaleria() {
     todosFilmes.forEach(function (filme) {
         const card = document.createElement("div");
         card.className = "card-galeria";
+        card.dataset.nome = filme.nome;
+        // <div class="card" data-nome="Batman"</div>
+        card.innerHTML = `
+            <img
+                src="${filme.img}"
+                alt="${filme.nome}"
 
-    })
+                onerror="this.style.background="#2a2a2a""
+            >
+            
+            <div class="card-nome">
+                ${filme.nome}
+            </div>
 
+            <div class="card-tipo">
+                ${filme.tipo}
+            </div>           
+        `;
+
+        galeria.appendChild(card);
+
+        console.log("Galeria criado com", todosFilmes.length, "card");
+
+
+    });
+   
 }
+
+ function filtrarFilmes(termoBusca) {
+        const termo = termoBusca.toLowerCase().trim();
+
+        const cards = document.querySelectorAll(".card-galeria");
+
+        let visiveis = 0;
+
+        cards.forEach(function (card) {
+            const nomeDoFilme = card.dataset.nome.toLowerCase();
+
+            const combina = termo === "" || nomeDoFilme.includes(termo);
+
+            if (combina) {
+                card.classList.remove("oculto");
+
+                visiveis++;
+            } else {
+                card.classList.add("oculto");
+            }
+        });
+
+        const semResultado = document.getElementById("sem-resultado");
+
+        if (semResultado) {
+            semResultado.style.display = visiveis === 0 ? "block" : "none";
+        };
+
+        console.log(`Filtro "${termoBusca}" : ${visiveis} semResultado(s).`)
+    }
+
 

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Exercícios de Fixação</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        header {
+            background: #161b22;
+            padding: 18px 30px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        header h1 { font-size: 1.4rem; color: #e50914; }
+        header p  { font-size: 0.85rem; color: #8b949e; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+        .exercicio {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .exercicio-header {
+            background: #1f2937;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .numero {
+            background: #e50914;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.85rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .exercicio-header h2 { font-size: 1rem; color: #f0f6fc; }
+
+        .conceito {
+            font-size: 0.75rem;
+            color: #58a6ff;
+            background: rgba(88,166,255,0.1);
+            border: 1px solid rgba(88,166,255,0.3);
+            padding: 3px 8px;
+            border-radius: 20px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        .exercicio-body { padding: 20px; }
+
+        .instrucao {
+            background: #0d1117;
+            border-left: 3px solid #e50914;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .instrucao strong { color: #f0f6fc; display: block; margin-bottom: 4px; }
+
+        .area-exercicio {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        /* ── elementos usados nos exercícios ── */
+
+        .filme-card-ex {
+            background: #1f2937;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .filme-card-ex img {
+            width: 60px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .filme-card-ex h3 { font-size: 1rem; color: #f0f6fc; margin-bottom: 4px; }
+        .filme-card-ex p  { font-size: 0.8rem; color: #8b949e; }
+
+        .badge-ex {
+            display: inline-block;
+            background: #e50914;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+
+        .mini-lista-ex {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .item-lista-ex {
+            background: #1f2937;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .item-lista-ex:hover { background: #2d3748; }
+        .item-lista-ex.selecionado { border-color: #e50914; color: #e50914; }
+
+        input[type="text"] {
+            width: 100%;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 10px 14px;
+            color: #c9d1d9;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus { border-color: #58a6ff; }
+
+        button {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 9px 18px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        button:hover { background: #c00812; }
+
+        button.secundario {
+            background: #21262d;
+            border: 1px solid #30363d;
+        }
+
+        button.secundario:hover { background: #2d3748; }
+
+        ul#lista-ex3 {
+            list-style: none;
+            margin-top: 14px;
+        }
+
+        ul#lista-ex3 li {
+            background: #1f2937;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul#lista-ex3 li button {
+            background: transparent;
+            color: #8b949e;
+            border: 1px solid #30363d;
+            font-size: 0.75rem;
+            margin-top: 0;
+            padding: 4px 10px;
+        }
+
+        ul#lista-ex3 li button:hover { color: #e50914; border-color: #e50914; }
+
+        .galeria-ex {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .card-galeria-ex {
+            background: #1f2937;
+            border: 2px solid #30363d;
+            border-radius: 6px;
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .card-galeria-ex img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .card-galeria-ex p {
+            padding: 6px 4px;
+            font-size: 0.7rem;
+            color: #8b949e;
+        }
+
+        .card-galeria-ex.oculto { display: none; }
+
+        .card-galeria-ex.favoritado { border-color: #e50914; }
+
+        .resultado-ex {
+            background: #0d1117;
+            border: 1px dashed #30363d;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            color: #8b949e;
+            min-height: 38px;
+            margin-top: 10px;
+        }
+
+        .dica {
+            background: rgba(255, 215, 0, 0.07);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            color: #ffd700;
+            margin-top: 10px;
+        }
+
+        .dica strong { display: block; margin-bottom: 2px; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #484f58;
+            font-size: 0.8rem;
+            border-top: 1px solid #21262d;
+            margin-top: 20px;
+        }
+
+        .destaque-verde { border-color: #3fb950 !important; }
+        .card-favoritado-ex { border-color: #e50914 !important; box-shadow: 0 0 16px rgba(229,9,20,0.4); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎬 StreamFlix</h1>
+    <p>Exercícios de Fixação — DOM JavaScript</p>
+</header>
+
+<div class="container">
+
+    <!-- =====================================================
+         EXERCÍCIO 1 — SELEÇÃO E LEITURA DE ELEMENTOS
+         ===================================================== -->
+    <div class="exercicio">
+        <div class="exercicio-header">
+            <div class="numero">1</div>
+            <h2>Selecionar e Exibir o Título</h2>
+            <span class="conceito">getElementById · textContent</span>
+        </div>
+        <div class="exercicio-body">
+
+            <div class="instrucao">
+                <strong>O que fazer:</strong>
+                Ao clicar no botão, use <code>getElementById</code> para selecionar o elemento
+                com <code>id="titulo-ex1"</code> e exiba o texto dele no parágrafo de resultado.
+            </div>
+
+            <div class="area-exercicio">
+                <div class="filme-card-ex">
+                    <img src="https://image.tmdb.org/t/p/w500/twfKp60THrcOIep9sjHODOOfO8d.jpg" alt="Stranger Things">
+                    <div>
+                        <h3 id="titulo-ex1">Stranger Things</h3>
+                        <p>Ficção Científica · Série</p>
+                    </div>
+                </div>
+
+                <button onclick="exercicio1()">📌 Ler o Título</button>
+            </div>
+
+            <div class="resultado-ex" id="resultado-ex1">O título vai aparecer aqui...</div>
+
+            <div class="dica">
+                <strong>💡 Dica</strong>
+                Use <code>document.getElementById('titulo-ex1')</code> e depois acesse a propriedade <code>.textContent</code>.
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         EXERCÍCIO 2 — FAVORITAR COM IF/ELSE E STYLE
+         ===================================================== -->
+    <div class="exercicio">
+        <div class="exercicio-header">
+            <div class="numero">2</div>
+            <h2>Favoritar o Card</h2>
+            <span class="conceito">if/else · style · classList.add · classList.remove</span>
+        </div>
+        <div class="exercicio-body">
+
+            <div class="instrucao">
+                <strong>O que fazer:</strong>
+                Ao clicar no botão, verifique o valor da variável <code>favoritado</code>
+                (começa como <code>false</code>). Se não estiver favoritado: adicione a classe
+                <code>card-favoritado-ex</code> ao card e mude o texto do botão para "💔 Desfavoritar".
+                Se já estiver favoritado: remova a classe e volte o texto original.
+                Não esqueça de inverter a variável a cada clique.
+            </div>
+
+            <div class="area-exercicio">
+                <div class="filme-card-ex" id="card-ex2">
+                    <img src="https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg" alt="Breaking Bad">
+                    <div>
+                        <h3>Breaking Bad</h3>
+                        <p>Drama · Série</p>
+                    </div>
+                </div>
+
+                <button id="btn-ex2" onclick="exercicio2()">❤️ Favoritar</button>
+            </div>
+
+            <div class="resultado-ex" id="resultado-ex2">Clique no botão para favoritar...</div>
+
+            <div class="dica">
+                <strong>💡 Dica</strong>
+                Use uma variável <code>let favoritado = false</code> fora da função.
+                Dentro da função: <code>favoritado = !favoritado</code> inverte o valor.
+                Depois use <code>if (favoritado) { ... } else { ... }</code> para decidir o que fazer.
+                Para mudar o texto do botão: <code>document.getElementById('btn-ex2').textContent = '...'</code>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         EXERCÍCIO 3 — LISTA DINÂMICA (MINHA LISTA)
+         ===================================================== -->
+    <div class="exercicio">
+        <div class="exercicio-header">
+            <div class="numero">3</div>
+            <h2>Minha Lista de Séries</h2>
+            <span class="conceito">createElement · appendChild · remove</span>
+        </div>
+        <div class="exercicio-body">
+
+            <div class="instrucao">
+                <strong>O que fazer:</strong>
+                Ao clicar em "Adicionar", crie um <code>&lt;li&gt;</code> com o nome digitado e um
+                botão "Remover" e adicione na lista <code>id="lista-ex3"</code>.
+                Ao clicar em "Remover", o item deve sair da lista.
+            </div>
+
+            <div class="area-exercicio">
+                <input type="text" id="input-ex3" placeholder="Digite o nome de uma série...">
+                <button onclick="exercicio3()">➕ Adicionar</button>
+
+                <ul id="lista-ex3"></ul>
+            </div>
+
+            <div class="dica">
+                <strong>💡 Dica — passo a passo</strong>
+                1. Leia o <code>.value</code> do input &nbsp;|&nbsp;
+                2. Crie um <code>&lt;li&gt;</code> com <code>createElement</code> &nbsp;|&nbsp;
+                3. Defina o <code>textContent</code> &nbsp;|&nbsp;
+                4. Crie o botão e no <code>onclick</code> use <code>this.parentElement.remove()</code> &nbsp;|&nbsp;
+                5. <code>appendChild</code> do botão no li &nbsp;|&nbsp;
+                6. <code>appendChild</code> do li no <code>ul</code>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         EXERCÍCIO 4 — EVENTO DE CLIQUE EM CARD
+         ===================================================== -->
+    <div class="exercicio">
+        <div class="exercicio-header">
+            <div class="numero">4</div>
+            <h2>Favoritar Série</h2>
+            <span class="conceito">addEventListener · click · classList</span>
+        </div>
+        <div class="exercicio-body">
+
+            <div class="instrucao">
+                <strong>O que fazer:</strong>
+                Use <code>addEventListener('click')</code> em cada card abaixo.
+                Ao clicar, adicione a classe <code>favoritado</code> ao card clicado
+                (borda vermelha vai aparecer). Clique de novo para desfavoritar usando <code>toggle</code>.
+            </div>
+
+            <div class="area-exercicio">
+                <div class="galeria-ex" id="galeria-ex4">
+                    <div class="card-galeria-ex" data-nome="La Casa de Papel">
+                        <img src="https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg" alt="La Casa de Papel">
+                        <p>La Casa de Papel</p>
+                    </div>
+                    <div class="card-galeria-ex" data-nome="Round 6">
+                        <img src="https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg" alt="Round 6">
+                        <p>Round 6</p>
+                    </div>
+                    <div class="card-galeria-ex" data-nome="The Witcher">
+                        <img src="https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg" alt="The Witcher">
+                        <p>The Witcher</p>
+                    </div>
+                    <div class="card-galeria-ex" data-nome="Wednesday">
+                        <img src="https://image.tmdb.org/t/p/w500/qZtAf4Z1lazGQoYVXiHOrvLr5lI.jpg" alt="Wednesday">
+                        <p>Wednesday</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resultado-ex" id="resultado-ex4">Clique em uma série para favoritar...</div>
+
+            <div class="dica">
+                <strong>💡 Dica</strong>
+                Use <code>querySelectorAll('.card-galeria-ex')</code> e um <code>forEach</code> para
+                adicionar o evento em cada card. Dentro do evento, use <code>this.classList.toggle('favoritado')</code>.
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         EXERCÍCIO 5 — FILTRO POR TIPO (Filme / Série)
+         ===================================================== -->
+    <div class="exercicio">
+        <div class="exercicio-header">
+            <div class="numero">5</div>
+            <h2>Filtrar por Tipo</h2>
+            <span class="conceito">dataset · classList · forEach</span>
+        </div>
+        <div class="exercicio-body">
+
+            <div class="instrucao">
+                <strong>O que fazer:</strong>
+                Ao clicar em cada botão, mostre apenas os cards do tipo correspondente
+                usando o atributo <code>data-tipo</code> de cada card.
+                O botão "Todos" mostra tudo.
+            </div>
+
+            <div class="area-exercicio">
+                <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+                    <button onclick="filtrarPorTipo('todos')" class="secundario">🎬 Todos</button>
+                    <button onclick="filtrarPorTipo('Série')"  class="secundario">📺 Séries</button>
+                    <button onclick="filtrarPorTipo('Filme')"  class="secundario">🎥 Filmes</button>
+                </div>
+
+                <div class="galeria-ex" id="galeria-ex5">
+                    <div class="card-galeria-ex" data-tipo="Série">
+                        <img src="https://image.tmdb.org/t/p/w500/twfKp60THrcOIep9sjHODOOfO8d.jpg" alt="Stranger Things">
+                        <p>Stranger Things</p>
+                    </div>
+                    <div class="card-galeria-ex" data-tipo="Filme">
+                        <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="Oppenheimer">
+                        <p>Oppenheimer</p>
+                    </div>
+                    <div class="card-galeria-ex" data-tipo="Série">
+                        <img src="https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg" alt="Breaking Bad">
+                        <p>Breaking Bad</p>
+                    </div>
+                    <div class="card-galeria-ex" data-tipo="Filme">
+                        <img src="https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg" alt="Barbie">
+                        <p>Barbie</p>
+                    </div>
+                    <div class="card-galeria-ex" data-tipo="Série">
+                        <img src="https://image.tmdb.org/t/p/w500/MoEKaPFHABtA1xKoOteirGaHl1.jpg" alt="La Casa de Papel">
+                        <p>La Casa de Papel</p>
+                    </div>
+                    <div class="card-galeria-ex" data-tipo="Filme">
+                        <img src="https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg" alt="Duna">
+                        <p>Duna</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resultado-ex" id="resultado-ex5">Clique em um botão para filtrar...</div>
+
+            <div class="dica">
+                <strong>💡 Dica</strong>
+                Dentro de <code>filtrarPorTipo(tipo)</code>: pegue todos os <code>.card-galeria-ex</code>
+                com <code>querySelectorAll</code> e para cada um verifique se
+                <code>card.dataset.tipo === tipo</code>. Se sim, remova a classe <code>oculto</code>,
+                senão adicione. Para "todos", remova <code>oculto</code> de todos.
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<footer>
+    <p>🎓 StreamFlix — Exercícios de DOM JavaScript · Boa prática!</p>
+</footer>
+
+<script src="exercicios.js"></script>
+</body>
+</html>
