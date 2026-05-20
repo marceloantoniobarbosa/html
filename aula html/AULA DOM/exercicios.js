@@ -54,8 +54,9 @@ let favoritado = false;
 function exercicio2() {
 
     favoritado = !favoritado
-    
 
+    const titulo = document.getElementById("card-ex2");
+    const resultado = document.getElementById("btn-ex2");
 
 }
 
