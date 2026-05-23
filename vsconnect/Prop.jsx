@@ -51,3 +51,68 @@ function Usuario({nome, idade, cidade}) {
     idade={47}
     cidade="São Caetano do Sul"
 />
+
+//useState
+function Contador() {
+    let numero = 0;
+
+    function aumentar() {
+        numero++
+
+        console.log(numero)
+    }
+    return (
+        <div>
+            <h1>{numero}</h1>
+            <button onClick={aumentar}>Aumentar</button>
+        </div>
+    )
+}
+
+import { useState } from "react";
+    function Contador () {
+        const [contador, setContador] = useState(0)
+        return (
+            <div>
+                <p><Voc>Você clicou {contador} vezes</Voc></p>
+                <button onClick={() => setContador(contador + 1)}>Clique aqui</button>
+            </div>
+        )
+    }
+
+    function Nome() {
+        const [nome, setNome] = useState("");
+        return (
+            <div>
+                <input onChange={(e) => setNome(e.target.value)} />
+                <h1>{nome}</h1>
+            </div>
+        )
+    }
+
+    function FormularioLogin() {
+        const [email, setEmail] = useState("");
+        const [senha, setSenha] = useState("");
+
+        function enviarFormulario(event) {
+            event.preventDefaul();
+            console.log(`Email`, email)
+            console.log(`Senha`, senha)
+        }
+
+        return (
+            <form onSubmit={enviarFormulario}>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Digite seu email"/>
+
+                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="digite a senha">
+                
+                </input>
+
+                <button type="submit">
+
+                </button>
+            </form>
+        )
+    }
+
+    
