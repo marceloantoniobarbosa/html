@@ -115,4 +115,14 @@ import { useState } from "react";
         )
     }
 
-    
+    // Estado com arrays 
+    const [listaItens, setListaItens] = useState([]);
+
+    function adicionarItem(novoItem) {
+        setListaItens([...listaItens, novoItem])
+
+        function removerItens(itemParaRemover) {
+            setListaItens(listaItens.filter(item => item != itemParaRemover))
+        }
+
+    }
