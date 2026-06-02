@@ -56,6 +56,12 @@ header .barras::before {
     transition: 0.5s;
 }
 
+* header nav>div {
+    display: flex;
+    justify-content: space-between; 
+    width: 65%; 
+}
+
 .ativo .barras {
     transform: rotate(135deg);
 }

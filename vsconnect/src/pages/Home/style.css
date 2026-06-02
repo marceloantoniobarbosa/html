@@ -1,0 +1,364 @@
+/* ============================================================
+   SOMBRA — fundo escuro que aparece atrás do menu hambúrguer
+   ============================================================ */
+
+
+   /* header nav>div {
+    display: flex;
+    justify-content: space-between; 
+    width: 65%;  
+}*/
+#sombra {
+    /* position: fixed → o elemento fica fixo na tela, mesmo que o usuário role a página
+       É diferente de "absolute" (relativo ao pai) e "relative" (relativo a si mesmo) */
+    position: fixed;
+
+    /* Começa encostado no topo da tela */
+    top: 0;
+
+    /* right: 110vw → posiciona o elemento 110% da largura da tela para a DIREITA
+       Ou seja, está completamente fora da área visível (escondido para a direita)
+       Quando o menu abre, o JavaScript muda esse valor para -10vw (entra na tela) */
+    right: 110vw;
+
+    /* Cor preta com transparência — o "a6" no final do hex é a opacidade (66% opaco)
+       Formato: #RRGGBB + AA (onde AA é a opacidade em hexadecimal) */
+    background-color: #000000a6;
+
+    /* Largura de 130% da tela — maior que 100% para garantir que cobre tudo
+       vw = viewport width = largura da janela do navegador */
+    width: 130vw;
+
+    /* Altura de 100% da tela — cobre do topo até o rodapé
+       vh = viewport height = altura da janela do navegador */
+    height: 100vh;
+
+    /* z-index controla qual elemento fica "na frente" de outros
+       Valor 1 coloca a sombra na frente do conteúdo normal da página */
+    z-index: 1;
+
+    /* Impede que conteúdo apareça para fora dos limites deste elemento */
+    overflow: hidden;
+
+    /* transition: .5s → qualquer mudança de propriedade CSS será animada em 0.5 segundos
+       É isso que faz a sombra aparecer e desaparecer de forma suave */
+    transition: .5s;
+
+    /* backdrop-filter: blur → aplica desfoque no que está ATRÁS deste elemento
+       blur(10px) = 10 pixels de desfoque — cria o efeito de vidro fosco */
+    backdrop-filter: blur(10px);
+}
+
+
+/* ============================================================
+   HEADER — barra de navegação no topo da página
+   ============================================================ */
+
+/* Define a cor de fundo do header usando uma variável CSS
+   var(--azulP) é uma variável definida em outro arquivo CSS (provavelmente no :root global)
+   Usar variáveis facilita mudar a cor do projeto inteiro de um só lugar */
+header {
+    background-color: var(--azulP);
+}
+
+/* Container interno do header — organiza os itens (hambúrguer, logo, nav) lado a lado */
+header .header_conteudo {
+    /* display: flex → ativa o Flexbox, sistema de layout que organiza os filhos em linha ou coluna */
+    display: flex;
+
+    /* justify-content: space-between → distribui os itens com espaço igual entre eles
+       O primeiro item fica na esquerda, o último na direita, os do meio no centro */
+    justify-content: space-between;
+
+    /* align-items: center → centraliza os itens verticalmente dentro do header */
+    align-items: center;
+
+    /* Define a altura fixa do header como 80 pixels */
+    height: 80px;
+}
+
+
+/* ============================================================
+   BOTÃO HAMBÚRGUER (ícone das 3 linhas)
+   ============================================================ */
+
+/* Por padrão (desktop) o botão hambúrguer fica ESCONDIDO
+   Ele só aparece em telas pequenas (definido lá embaixo no @media) */
+header .menu_barras {
+    display: none;
+
+    /* z-index: 1 → garante que o botão fique na frente de outros elementos
+       Importante para ele ficar clicável mesmo quando a sombra está ativa */
+    z-index: 1;
+}
+
+/* Estilo para caso haja uma imagem dentro do botão hambúrguer (não está sendo usado agora) */
+header .menu_barras>img {
+    width: 50px;
+}
+
+/* A barra do MEIO do ícone hambúrguer
+   As barras de CIMA e BAIXO são criadas com ::before e ::after abaixo */
+header .barras {
+    width: 40px;       /* Largura de cada barra */
+    height: 5px;       /* Espessura de cada barra */
+    border-radius: 5px; /* Arredonda as pontas da barra */
+    background-color: var(--branco); /* Cor branca (variável CSS) */
+
+    /* display: block → necessário para que width e height funcionem corretamente
+       Elementos inline (como <span>) ignoram width/height */
+    display: block;
+
+    /* Pequeno espaço no topo para centralizar melhor as 3 barras visualmente */
+    margin-top: 5px;
+
+    /* position: relative → necessário para que os filhos com position: absolute
+       se posicionem em relação a este elemento (usado pelo ::before e ::after) */
+    position: relative;
+
+    /* Animação suave de 0.5s para quando as barras virarem o X */
+    transition: .5s;
+}
+
+/* Barra de BAIXO — criada com ::after (pseudo-elemento)
+   ::after cria um elemento visual "depois" do conteúdo sem precisar de HTML extra */
+header .barras::after {
+    /* content obrigatório para pseudo-elementos aparecerem — pode ser vazio */
+    content: '';
+
+    display: block;
+    width: 40px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--branco);
+
+    /* position: absolute → posiciona em relação ao pai que tem position: relative (a .barras) */
+    position: absolute;
+
+    /* top: 12px → fica 12 pixels ABAIXO da barra do meio */
+    top: 12px;
+
+    transition: .5s;
+}
+
+/* Barra de CIMA — criada com ::before (pseudo-elemento)
+   ::before cria um elemento visual "antes" do conteúdo */
+header .barras::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--branco);
+    position: absolute;
+
+    /* top: -12px → fica 12 pixels ACIMA da barra do meio */
+    top: -12px;
+
+    transition: .5s;
+}
+
+
+/* ============================================================
+   ANIMAÇÃO DO X — quando o menu está aberto (classe "ativo" ativa)
+   O JavaScript adiciona/remove a classe "ativo" no botão ao clicar
+   ============================================================ */
+
+/* A barra do MEIO gira 135 graus — fica diagonal */
+.ativo .barras {
+    transform: rotate(135deg);
+}
+
+/* A barra de BAIXO gira -270 graus (que visualmente é a mesma posição de 90 graus)
+   e sobe até top: 0 para se sobrepor à barra do meio, formando o X */
+.ativo .barras::after {
+    transform: rotate(-270deg);
+    top: 0; /* Sobe até ficar no mesmo nível da barra do meio */
+}
+
+/* A barra de CIMA desce até top: 0 para se sobrepor à barra do meio
+   Junto com a rotação da barra do meio, forma o X completo */
+.ativo .barras::before {
+    top: 0; /* Desce até ficar no mesmo nível da barra do meio */
+}
+
+
+/* ============================================================
+   LOGO
+   ============================================================ */
+header .header_logo {
+    /* width: 50% → ocupa 50% do espaço disponível no header */
+    width: 50%;
+
+    /* max-width limita o tamanho máximo mesmo que o pai seja muito largo
+       Assim o logo nunca fica maior que 220px, independente da tela */
+    max-width: 220px;
+}
+
+
+/* ============================================================
+   NAVEGAÇÃO (links + botão de login)
+   ============================================================ */
+header nav {
+    max-width: 550px; /* Largura máxima da nav */
+    width: 60%;       /* Ocupa 60% do espaço disponível */
+
+    display: flex;                  /* Flexbox para alinhar links lado a lado */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    align-items: center;            /* Centraliza verticalmente */
+
+    font-family: var(--font1); /* Fonte padrão dos textos dentro da nav */
+    font-size: 18px;
+}
+
+/* Estiliza o <div> direto filho da <nav> (o menu_links com os links) */
+header nav>div {
+    display: flex;
+    justify-content: space-between; /* Espaça os links (home, serviços, cadastro) igualmente */
+    width: 65%; /* Ocupa 65% da largura da nav */
+}
+
+/* Estiliza TODOS os links <a> dentro da nav */
+header nav a {
+    color: var(--branco); /* Texto branco */
+
+    /* Remove o sublinhado padrão dos links */
+    text-decoration: none;
+
+    /* Transforma o texto em maiúsculo automaticamente via CSS
+       (o texto no HTML pode estar minúsculo, mas aparece em maiúsculo na tela) */
+    text-transform: uppercase;
+
+    font-family: var(--font2);
+}
+
+/* Botão de login com estilo de "pílula" — aparece APENAS no desktop */
+header .header_botao_login {
+    /* Borda sólida de 4px na cor rosa (variável CSS) */
+    border: 4px solid var(--rosa);
+
+    /* padding: cima/baixo esquerda/direita — espaçamento interno do botão */
+    padding: 4px 30px;
+
+    /* border-radius: 30% → arredonda os cantos, criando formato de pílula */
+    border-radius: 30%;
+
+    font-family: var(--font1);
+}
+
+/* Ícone de login (SVG de seta) — fica ESCONDIDO no desktop
+   Aparece apenas no mobile (redefinido no @media abaixo) */
+header .header_icone_login {
+    display: none;
+}
+
+
+/* ============================================================
+   RESPONSIVIDADE — regras que se aplicam APENAS em telas até 768px
+   @media screen → aplica apenas em telas (não em impressão, por exemplo)
+   max-width: 768px → regra ativa quando a tela tem NO MÁXIMO 768 pixels de largura
+   768px é o breakpoint tradicional para separar mobile de desktop
+   ============================================================ */
+@media screen and (max-width: 768px) {
+
+    /* Mostra o botão hambúrguer que estava escondido no desktop
+       "initial" restaura o valor padrão da propriedade display para o elemento <a>
+       Usamos "header .menu_barras" (mesmo seletor do desktop) para garantir
+       que esta regra tenha a mesma especificidade e consiga sobrescrever o display: none */
+    header .menu_barras {
+        display: initial;
+    }
+
+
+    /* Menu lateral que desliza da esquerda no mobile */
+    .menu_links {
+        /* position: absolute → retira o elemento do fluxo normal da página ancestral o body
+           e o posiciona em relação ao ancestral com position: relative ou ao body */
+        position: absolute;
+
+        /* left: -300px → esconde o menu completamente fora da tela pela esquerda
+           Quando o JavaScript muda para left: "10px", o menu desliza para dentro */
+        left: -300px;
+
+        /* Esconde qualquer conteúdo que ultrapasse horizontalmente */
+        overflow-x: hidden;
+
+        /* top: 70px → posiciona o menu 70px do topo (logo abaixo do header que tem 80px) */
+        top: 70px;
+
+        /* flex-direction: column → empilha os links verticalmente (um embaixo do outro)
+           Por padrão o flex é "row" (lado a lado) */
+        flex-direction: column;
+
+        /* Borda branca semitransparente — rgba(255,255,255, 0.8) = branco com 80% de opacidade */
+        border: 1px solid rgba(255, 255, 255, 0.8);
+
+        /* Desfoque de fundo — cria o efeito de vidro fosco no menu */
+        backdrop-filter: blur(10px);
+
+        /* Sombra externa do menu para dar profundidade
+           box-shadow: deslocamento-x deslocamento-y desfoque cor
+           15px 15px 30px = sombra para baixo/direita com 30px de desfoque */
+        box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.5);
+
+        /* width: auto → a largura se ajusta ao conteúdo interno automaticamente */
+        width: auto;
+
+        /* z-index: 1 → fica na frente de outros elementos da página */
+        z-index: 1;
+
+        /* Bordas bem arredondadas (10% do tamanho) — formato quase oval */
+        border-radius: 10%;
+
+        /* Espaçamento interno de 10px em todos os lados */
+        padding: 10px;
+
+        /* Prefixos de compatibilidade com navegadores antigos:
+           -moz- → Firefox antigo
+           -webkit- → Chrome/Safari antigo
+           -o- → Opera antigo
+           A linha sem prefixo (transition) é o padrão atual */
+        -moz-transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+
+        /* transition: all → anima QUALQUER propriedade que mudar (no caso, o "left")
+           0.5s → duração de meio segundo
+           ease → começa rápido e desacelera no final (movimento natural) */
+        transition: all 0.5s ease;
+    }
+
+    /* Estiliza TODOS os elementos filhos do menu_links (os <a> dos links)
+       O * é o seletor universal — seleciona qualquer elemento */
+    .menu_links * {
+        /* margin: cima direita baixo esquerda
+           10px de cima e baixo, 100px à direita (cria espaço), 10px à esquerda */
+        margin: 10px 100px 10px 10px;
+    }
+
+    /* No mobile, a nav não precisa de largura fixa — ocupa só o espaço necessário */
+    header nav {
+        width: auto;
+    }
+
+    /* Esconde o botão de texto "login" no mobile */
+    .header_botao_login {
+        display: none;
+    }
+
+    /* Mostra o ícone SVG de login no mobile
+       display: flex para centralizar o SVG dentro do link
+       Usamos "header .header_icone_login" para ter a mesma especificidade que o display: none do desktop */
+    header .header_icone_login {
+        display: flex;
+    }
+
+    /* Dimensiona o ícone SVG de login no mobile */
+    header nav svg {
+        width: 35px;
+
+        /* fill → cor de preenchimento do SVG (equivale ao color do texto)
+           Como o SVG é código, sua cor é controlada por fill e não por color */
+        fill: var(--branco);
+    }
+}
